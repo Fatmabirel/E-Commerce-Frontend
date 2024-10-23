@@ -10,7 +10,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'dasboard', // anasayfa gibi çalışacağı için component bazlı yapılır module bazlı değil
+        path: '', // anasayfa gibi çalışacağı için component bazlı yapılır module bazlı değil
         component: DashboardComponent,
       },
       {
