@@ -7,6 +7,7 @@ import { UiModule } from './ui/ui.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    NgxSpinnerModule,
     AppRoutingModule,
     AdminModule,
     UiModule,
