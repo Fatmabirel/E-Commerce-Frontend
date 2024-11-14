@@ -1,0 +1,38 @@
+.file-drop-content {
+  text-align: center;
+  width: 200px;
+}
+
+.file-drop-content p {
+  color: black;
+  font-size: 16px;
+  margin: 0; /* Altındaki boşluğu kaldırır */
+}
+
+.file-drop-content button {
+  display: block;
+  margin: 10px auto 0; /* Butonu ortalar ve üstte boşluk bırakır */
+  width: 150px;
+  background-color: blue;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.file-drop-content button:hover {
+  background-color: darkblue;
+}
+
+.upload-table {
+  margin-top: 5px;
+}
+
+.upload-table th,
+.upload-table td {
+  font-size: 14px !important; /* Yazı boyutunu küçültür */
+  font-weight: normal !important; /* Yazı kalınlığını normal yapar */
+  color: black !important; /* Yazı rengini siyah yapar */
+}

@@ -15,7 +15,7 @@ export class HttpClientService {
     return `${
       requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl
     }/${requestParameter.controller}${
-      requestParameter.action ? `${requestParameter.action}` : ''
+      requestParameter.action ? `/${requestParameter.action}` : ''
     }`;
   }
 
@@ -42,11 +42,11 @@ export class HttpClientService {
       url = `${this.url(requestParameter)}${
         requestParameter.queryString ? `?${requestParameter.queryString}` : ''
       }`;
+
     return this.httpClient.post<T>(url, body, {
       headers: requestParameter.headers,
     });
   }
-
   put<T>(
     requestParameter: Partial<RequestParameters>,
     body: Partial<T>

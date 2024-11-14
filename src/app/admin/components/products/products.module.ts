@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DeleteDirective } from '../../../directives/admin/delete.directive';
 import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatPaginator,
     MatPaginatorModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    FileUploadModule
   ],
 })
 export class ProductsModule {}
