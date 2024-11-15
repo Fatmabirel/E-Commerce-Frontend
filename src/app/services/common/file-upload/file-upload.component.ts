@@ -12,6 +12,12 @@ import {
   ToastrMessageType,
   ToastrPosition,
 } from '../../ui/custom-toastr.service';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  FileUploadDialogComponent,
+  FileUploadDialogState,
+} from '../../../dialogs/file-upload-dialog/file-upload-dialog.component';
+import { DialogService } from '../dialog.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -22,7 +28,9 @@ export class FileUploadComponent {
   constructor(
     private httpClientService: HttpClientService,
     private alertifyService: AlertifyService,
-    private customToastrService: CustomToastrService
+    private customToastrService: CustomToastrService,
+    private dialogService: DialogService,
+    private dialog: MatDialog
   ) {}
 
   public files: NgxFileDropEntry[];
@@ -37,50 +45,57 @@ export class FileUploadComponent {
       });
     }
 
-    this.httpClientService
-      .post(
-        {
-          controller: this.options.controller,
-          action: this.options.action,
-          queryString: this.options.queryString,
-          headers: new HttpHeaders({ responseType: 'blob' }),
-        },
-        fileData
-      )
-      .subscribe(
-        (data) => {
-          const message: string = 'Dosyalar başarıyla yüklenmiştir.';
-          if (this.options.isAdminPage) {
-            this.alertifyService.message(message, {
-              dismissOthers: true,
-              messageType: MessageType.Success,
-              position: Position.BottomRight,
-              delay: 3,
-            });
-          } else {
-            this.customToastrService.message(message, 'Başarılı', {
-              messageType: ToastrMessageType.Success,
-              position: ToastrPosition.BottomRight,
-            });
-          }
-        },
-        (errorResponse: HttpErrorResponse) => {
-          const message: string = 'Dosyalar yüklenirken beklenmeyen bir hatayla karşılaşıldı';
-          if (this.options.isAdminPage) {
-            this.alertifyService.message(message, {
-              dismissOthers: true,
-              messageType: MessageType.Error,
-              position: Position.BottomRight,
-              delay: 3,
-            });
-          } else {
-            this.customToastrService.message(message, 'Başarısız', {
-              messageType: ToastrMessageType.Error,
-              position: ToastrPosition.BottomRight,
-            });
-          }
-        }
-      );
+    this.dialogService.openDialog({
+      componentType: FileUploadDialogComponent,
+      data: FileUploadDialogState.Yes,
+      afterClosed: () => {
+        this.httpClientService
+          .post(
+            {
+              controller: this.options.controller,
+              action: this.options.action,
+              queryString: this.options.queryString,
+              headers: new HttpHeaders({ responseType: 'blob' }),
+            },
+            fileData
+          )
+          .subscribe(
+            (data) => {
+              const message: string = 'Dosyalar başarıyla yüklenmiştir.';
+              if (this.options.isAdminPage) {
+                this.alertifyService.message(message, {
+                  dismissOthers: true,
+                  messageType: MessageType.Success,
+                  position: Position.BottomRight,
+                  delay: 3,
+                });
+              } else {
+                this.customToastrService.message(message, 'Başarılı', {
+                  messageType: ToastrMessageType.Success,
+                  position: ToastrPosition.BottomRight,
+                });
+              }
+            },
+            (errorResponse: HttpErrorResponse) => {
+              const message: string =
+                'Dosyalar yüklenirken beklenmeyen bir hatayla karşılaşıldı';
+              if (this.options.isAdminPage) {
+                this.alertifyService.message(message, {
+                  dismissOthers: true,
+                  messageType: MessageType.Error,
+                  position: Position.BottomRight,
+                  delay: 3,
+                });
+              } else {
+                this.customToastrService.message(message, 'Başarısız', {
+                  messageType: ToastrMessageType.Error,
+                  position: ToastrPosition.BottomRight,
+                });
+              }
+            }
+          );
+      },
+    });
   }
 }
 
